@@ -2153,36 +2153,6 @@
       el.innerHTML = `<span class="w-2 h-2 rounded-full ${dotColor} shrink-0"></span><span class="truncate">${escapeHtml(text)}</span>`;
     };
 
-        // Ensure valid active supervisor & active school
-        if (appState.supervisors.length > 0) {
-          const exists = appState.supervisors.some(s => s.id === appState.activeSupervisorId);
-          if (!exists) appState.activeSupervisorId = appState.supervisors[0].id;
-          const sup = getActiveSupervisor();
-          if (sup && sup.schools.length > 0) {
-            const schExists = sup.schools.some(sc => sc.id === appState.activeSchoolId);
-            if (!schExists) appState.activeSchoolId = sup.schools[0].id;
-          } else {
-            appState.activeSchoolId = null;
-          }
-        } else {
-          appState.activeSupervisorId = null;
-          appState.activeSchoolId = null;
-        }
-      } catch (err) {
-        console.error('Gagal membaca localStorage:', err);
-        appState = createEmptyState();
-      }
-    }
-
-    function saveState() {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
-      } catch (err) {
-        console.error('Gagal menyimpan localStorage:', err);
-        showToast('Gagal menyimpan data ke penyimpanan peramban.', 'error');
-      }
-    }
-
     // ==========================================================
     // HELPERS
     // ==========================================================
