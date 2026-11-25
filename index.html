@@ -582,15 +582,15 @@
                 </div>
               </div>
 
-              <!-- Bar Chart Rapor Pendidikan (6 Indikator) -->
+              <!-- Bar Chart Rapor Pendidikan (6 Dimensi SMA/SLB, 8 Dimensi SMK) -->
               <div class="lg:col-span-6 glass-card rounded-3xl p-5 sm:p-6 flex flex-col">
                 <div class="flex items-center justify-between gap-2 mb-4">
                   <div>
                     <h3 class="text-base font-bold text-white flex items-center gap-2">
                       <i data-lucide="bar-chart-3" class="w-5 h-5 text-teal-300"></i>
-                      Indikator Rapor Pendidikan (6 Dimensi)
+                      <span id="chart-rapor-title">Indikator Rapor Pendidikan (6 Dimensi)</span>
                     </h3>
-                    <p class="text-xs text-slate-300 mt-0.5">Literasi, Numerasi, Karakter, Keamanan, Kebinekaan & Kualitas Pembelajaran</p>
+                    <p id="chart-rapor-subtitle" class="text-xs text-slate-300 mt-0.5">Literasi, Numerasi, Karakter, Keamanan, Kebinekaan &amp; Kualitas Pembelajaran</p>
                   </div>
                   <button onclick="switchTab('pilar2')" class="text-xs font-semibold px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/15 text-teal-200 transition">
                     Analisis Mutu
@@ -792,20 +792,20 @@
               <form id="form-school" onsubmit="handleSaveSchool(event)" class="space-y-4">
                 <input type="hidden" id="sch-edit-id" value="" />
 
-                <!-- 5 Kolom Utama Sesuai Blangko PDF -->
+                <!-- Kolom Utama Input Sekolah Binaan (Blangko + Status, Kepala Sekolah & Akreditasi) -->
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-3.5">
                   <div class="md:col-span-4">
-                    <label class="block text-xs font-semibold text-cyan-200 mb-1">NAMA SEKOLAH *</label>
+                    <label for="sch-name" class="block text-xs font-semibold text-cyan-200 mb-1">NAMA SEKOLAH *</label>
                     <input id="sch-name" type="text" required placeholder="Contoh: SMA Negeri 1 Lima Puluh" class="glass-input w-full rounded-xl px-3.5 py-2.5 text-sm" />
                   </div>
 
                   <div class="md:col-span-2">
-                    <label class="block text-xs font-semibold text-cyan-200 mb-1">NPSN (8 Digit) *</label>
+                    <label for="sch-npsn" class="block text-xs font-semibold text-cyan-200 mb-1">NPSN (8 Digit) *</label>
                     <input id="sch-npsn" type="text" required pattern="[0-9]{8}" maxlength="8" title="NPSN harus terdiri dari 8 digit angka" placeholder="10204050" class="glass-input w-full rounded-xl px-3.5 py-2.5 text-sm font-mono" />
                   </div>
 
-                  <div class="md:col-span-2">
-                    <label class="block text-xs font-semibold text-cyan-200 mb-1">JENJANG *</label>
+                  <div class="md:col-span-3">
+                    <label for="sch-level" class="block text-xs font-semibold text-cyan-200 mb-1">JENJANG *</label>
                     <select id="sch-level" required class="glass-input w-full rounded-xl px-3.5 py-2.5 text-sm font-semibold">
                       <option value="SMA">SMA</option>
                       <option value="SMK">SMK</option>
@@ -813,13 +813,36 @@
                     </select>
                   </div>
 
-                  <div class="md:col-span-2">
-                    <label class="block text-xs font-semibold text-cyan-200 mb-1">KAB./KOTA *</label>
-                    <input id="sch-kabkota" type="text" required placeholder="Kab. Batu Bara" class="glass-input w-full rounded-xl px-3.5 py-2.5 text-sm" />
+                  <div class="md:col-span-3">
+                    <label for="sch-status" class="block text-xs font-semibold text-cyan-200 mb-1">STATUS SEKOLAH *</label>
+                    <select id="sch-status" required class="glass-input w-full rounded-xl px-3.5 py-2.5 text-sm font-semibold">
+                      <option value="Negeri">Negeri</option>
+                      <option value="Swasta">Swasta</option>
+                    </select>
+                  </div>
+
+                  <div class="md:col-span-4">
+                    <label for="sch-kepsek" class="block text-xs font-semibold text-cyan-200 mb-1">NAMA KEPALA SEKOLAH</label>
+                    <input id="sch-kepsek" type="text" placeholder="Contoh: Drs. Ahmad Fauzi, M.Pd" class="glass-input w-full rounded-xl px-3.5 py-2.5 text-sm" />
                   </div>
 
                   <div class="md:col-span-2">
-                    <label class="block text-xs font-semibold text-cyan-200 mb-1">CABDISDIK WILAYAH *</label>
+                    <label for="sch-akreditasi" class="block text-xs font-semibold text-cyan-200 mb-1">AKREDITASI SEKOLAH</label>
+                    <select id="sch-akreditasi" class="glass-input w-full rounded-xl px-3.5 py-2.5 text-sm font-semibold">
+                      <option value="A">A</option>
+                      <option value="B">B</option>
+                      <option value="C">C</option>
+                      <option value="Belum">Belum</option>
+                    </select>
+                  </div>
+
+                  <div class="md:col-span-3">
+                    <label for="sch-kabkota" class="block text-xs font-semibold text-cyan-200 mb-1">KAB./KOTA *</label>
+                    <input id="sch-kabkota" type="text" required placeholder="Kab. Batu Bara" class="glass-input w-full rounded-xl px-3.5 py-2.5 text-sm" />
+                  </div>
+
+                  <div class="md:col-span-3">
+                    <label for="sch-cabdin" class="block text-xs font-semibold text-cyan-200 mb-1">CABDISDIK WILAYAH *</label>
                     <input id="sch-cabdin" type="text" required placeholder="Cabdisdik Wil. V" class="glass-input w-full rounded-xl px-3.5 py-2.5 text-sm" />
                   </div>
                 </div>
@@ -828,39 +851,19 @@
                 <details id="sch-optional-details" class="rounded-2xl bg-white/5 border border-white/15 p-3.5">
                   <summary class="cursor-pointer text-xs font-bold text-slate-200 hover:text-cyan-200 select-none flex items-center gap-2">
                     <i data-lucide="sliders-horizontal" class="w-4 h-4 text-cyan-300"></i>
-                    Detail Tambahan Sekolah (Opsional: Kepala Sekolah, Status, Akreditasi, Jumlah Guru & Alamat)
+                    Detail Tambahan Sekolah (Opsional: Jumlah Guru, Jumlah Siswa &amp; Alamat)
                   </summary>
                   <div class="grid grid-cols-1 md:grid-cols-12 gap-3.5 pt-3.5 mt-3 border-t border-white/10">
-                    <div class="md:col-span-4">
-                      <label class="block text-xs font-semibold text-slate-300 mb-1">Nama Kepala Sekolah</label>
-                      <input id="sch-kepsek" type="text" placeholder="Contoh: Drs. Ahmad Fauzi, M.Pd" class="glass-input w-full rounded-xl px-3.5 py-2 text-sm" />
-                    </div>
-                    <div class="md:col-span-2">
-                      <label class="block text-xs font-semibold text-slate-300 mb-1">Status</label>
-                      <select id="sch-status" class="glass-input w-full rounded-xl px-3.5 py-2 text-sm">
-                        <option value="Negeri">Negeri</option>
-                        <option value="Swasta">Swasta</option>
-                      </select>
-                    </div>
-                    <div class="md:col-span-2">
-                      <label class="block text-xs font-semibold text-slate-300 mb-1">Akreditasi</label>
-                      <select id="sch-akreditasi" class="glass-input w-full rounded-xl px-3.5 py-2 text-sm">
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">C</option>
-                        <option value="Belum">Belum</option>
-                      </select>
-                    </div>
-                    <div class="md:col-span-2">
-                      <label class="block text-xs font-semibold text-slate-300 mb-1">Jumlah Guru</label>
+                    <div class="md:col-span-3">
+                      <label for="sch-teachers" class="block text-xs font-semibold text-slate-300 mb-1">Jumlah Guru</label>
                       <input id="sch-teachers" type="number" min="0" placeholder="45" class="glass-input w-full rounded-xl px-3.5 py-2 text-sm" />
                     </div>
-                    <div class="md:col-span-2">
-                      <label class="block text-xs font-semibold text-slate-300 mb-1">Jumlah Siswa</label>
+                    <div class="md:col-span-3">
+                      <label for="sch-students" class="block text-xs font-semibold text-slate-300 mb-1">Jumlah Siswa</label>
                       <input id="sch-students" type="number" min="0" placeholder="650" class="glass-input w-full rounded-xl px-3.5 py-2 text-sm" />
                     </div>
-                    <div class="md:col-span-12">
-                      <label class="block text-xs font-semibold text-slate-300 mb-1">Alamat Lengkap</label>
+                    <div class="md:col-span-6">
+                      <label for="sch-address" class="block text-xs font-semibold text-slate-300 mb-1">Alamat Lengkap</label>
                       <input id="sch-address" type="text" placeholder="Jl. Pendidikan No. 10..." class="glass-input w-full rounded-xl px-3.5 py-2 text-sm" />
                     </div>
                   </div>
@@ -1060,6 +1063,9 @@
               </button>
               <button onclick="switchPilar1Subtab('kinerja')" data-subtab="kinerja" class="subtab-btn px-4 py-2.5 rounded-2xl border border-white/15 bg-white/5 text-xs sm:text-sm font-bold text-slate-200 hover:bg-white/10 transition flex items-center gap-2">
                 <i data-lucide="award" class="w-4 h-4 text-amber-300"></i> Penilaian Kinerja (271/O/2025)
+              </button>
+              <button onclick="switchPilar1Subtab('rapor-ai')" data-subtab="rapor-ai" class="subtab-btn px-4 py-2.5 rounded-2xl border border-white/15 bg-white/5 text-xs sm:text-sm font-bold text-slate-200 hover:bg-white/10 transition flex items-center gap-2">
+                <i data-lucide="sparkles" class="w-4 h-4 text-emerald-300"></i> Analisis Rapor Pendidikan
               </button>
             </div>
 
@@ -1286,18 +1292,128 @@
                 </div>
               </div>
             </div>
+
+            <!-- 1E: Analisis Rapor Pendidikan Otomatis (AI - Siklus IRB) -->
+            <div id="p1-sub-rapor-ai" class="p1-subtab hidden space-y-5">
+              <!-- Panel Upload & Kontrol Analisis AI -->
+              <div class="glass-card rounded-3xl p-5 sm:p-6 space-y-5 border border-emerald-400/30">
+                <div class="flex flex-wrap items-start justify-between gap-3 border-b border-white/15 pb-4">
+                  <div>
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/20 text-emerald-200 border border-emerald-400/35 mb-1.5">
+                      <i data-lucide="cpu" class="w-3.5 h-3.5"></i> Analisis Otomatis Berbasis AI • Siklus IRB (PBD)
+                    </span>
+                    <h3 class="text-lg font-bold text-white">Analisis Rapor Pendidikan (Identifikasi, Refleksi, Benahi)</h3>
+                    <p class="text-xs text-slate-300 mt-0.5 max-w-3xl">
+                      Unggah file <strong>Rapor Pendidikan (format PDF)</strong> milik sekolah binaan aktif, lalu klik <strong>Lakukan Analisis Otomatis</strong>. Sistem AI akan menelaah <strong>6 Dimensi</strong> untuk <strong>SMA/SMA-LB</strong> (A.1 Literasi, A.2 Numerasi, A.3 Karakter, D.1 Pembelajaran, D.4 Keamanan, D.8 Kebinekaan) atau <strong>8 Dimensi</strong> khusus <strong>SMK</strong> (+ <strong>A.4 Penyerapan Lulusan SMK</strong> &amp; <strong>D.17 Kemitraan dan Keselarasan dengan Dunia Kerja</strong>), lalu menyinkronkan skornya secara otomatis ke Grafik Indikator Rapor Pendidikan di Dashboard.
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Area Upload PDF & Tombol Aksi Utama -->
+                <div class="rounded-2xl bg-white/5 border border-dashed border-emerald-400/40 p-5 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                  <div class="flex items-start gap-3.5 min-w-0">
+                    <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 border border-emerald-400/35 flex items-center justify-center text-emerald-300 shrink-0">
+                      <i data-lucide="file-text" class="w-6 h-6"></i>
+                    </div>
+                    <div class="min-w-0 space-y-1">
+                      <p class="text-sm font-bold text-white">Dokumen Rapor Pendidikan (Format PDF)</p>
+                      <p id="rapor-pdf-status" class="text-xs text-slate-300 truncate">Belum ada file PDF dipilih (Maks. 15 MB)</p>
+                    </div>
+                  </div>
+
+                  <div class="flex flex-wrap items-center gap-2.5 shrink-0">
+                    <input type="file" id="rapor-pdf-input" accept="application/pdf,.pdf" class="hidden" onchange="handleRaporPdfSelected(event)" />
+                    <button type="button" onclick="triggerUploadRaporPdf()" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/25 text-white text-xs sm:text-sm font-bold transition">
+                      <i data-lucide="upload" class="w-4 h-4 text-cyan-300"></i> Upload Rapor Pendidikan
+                    </button>
+                    <button type="button" id="btn-run-rapor-ai" onclick="runAutoRaporAnalysis()" disabled class="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-cyan-600 hover:from-emerald-400 hover:to-cyan-500 disabled:opacity-45 disabled:cursor-not-allowed text-white text-xs sm:text-sm font-bold shadow-lg shadow-emerald-600/25 border border-white/20 transition">
+                      <i data-lucide="sparkles" class="w-4 h-4"></i> Lakukan Analisis Otomatis
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Loading State Analisis AI -->
+                <div id="rapor-ai-loading" class="hidden rounded-2xl bg-cyan-950/50 border border-cyan-400/40 p-5 flex items-center gap-4">
+                  <div class="w-10 h-10 rounded-2xl bg-cyan-500/20 border border-cyan-300/40 flex items-center justify-center shrink-0">
+                    <i data-lucide="loader-2" class="w-5 h-5 text-cyan-300 animate-spin"></i>
+                  </div>
+                  <div class="space-y-1">
+                    <p class="text-sm font-bold text-white">AI sedang membaca &amp; menganalisis dokumen Rapor Pendidikan...</p>
+                    <p class="text-xs text-cyan-200/85">Menyusun tabel Identifikasi (masalah prioritas), Refleksi (akar masalah Level 2), dan rekomendasi program Benahi (RKS/RKAS).</p>
+                  </div>
+                </div>
+
+                <!-- Rambu-rambu Ringkas IRB -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+                  <div class="rounded-2xl bg-slate-950/35 border border-white/10 p-3.5">
+                    <p class="font-bold text-cyan-200 mb-1">1. Identifikasi (Masalah Utama)</p>
+                    <p class="text-slate-300 leading-relaxed">Memprioritaskan indikator bernilai kurang/sedang (kuning/merah) atau menurun pada 5 indikator prioritas (A.1, A.2, A.3, D.4, D.8) &amp; indikator kunci lainnya.</p>
+                  </div>
+                  <div class="rounded-2xl bg-slate-950/35 border border-white/10 p-3.5">
+                    <p class="font-bold text-indigo-200 mb-1">2. Refleksi (Akar Masalah)</p>
+                    <p class="text-slate-300 leading-relaxed">Menelusuri indikator Level 2 atau dimensi proses pembelajaran/kompetensi pendidik yang menyebabkan turunnya capaian Level 1.</p>
+                  </div>
+                  <div class="rounded-2xl bg-slate-950/35 border border-white/10 p-3.5">
+                    <p class="font-bold text-emerald-200 mb-1">3. Benahi (Tindak Lanjut PBD)</p>
+                    <p class="text-slate-300 leading-relaxed">Menyusun program/kegiatan konkret berbasis inspirasi Benahi Rapor Pendidikan untuk masuk ke dalam RKS dan RKAS.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Hasil Analisis & Pratinjau Format Dokumen Word (Docs) -->
+              <div id="rapor-ai-result-wrapper" class="hidden glass-card rounded-3xl p-5 sm:p-6 space-y-4">
+                <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/15 pb-4">
+                  <div>
+                    <h3 class="text-base font-bold text-white flex items-center gap-2">
+                      <i data-lucide="table-2" class="w-5 h-5 text-emerald-300"></i>
+                      Hasil Analisis Rapor Pendidikan (Format Tabel IRB Resmi)
+                    </h3>
+                    <p id="rapor-ai-meta" class="text-xs text-slate-300 mt-0.5">-</p>
+                  </div>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <button type="button" onclick="downloadRaporIRBWord()" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs sm:text-sm font-bold shadow-lg shadow-blue-600/30 border border-white/20 transition">
+                      <i data-lucide="file-down" class="w-4 h-4"></i> Unduh Word (.doc)
+                    </button>
+                    <button type="button" onclick="copyRaporIRBForGoogleDocs()" class="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-2xl bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-400/40 text-emerald-100 text-xs font-bold transition">
+                      <i data-lucide="copy" class="w-4 h-4"></i> Salin ke Google Docs
+                    </button>
+                    <button type="button" onclick="printRaporIRBLandscape()" class="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-2xl bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-400/40 text-cyan-100 text-xs font-bold transition">
+                      <i data-lucide="printer" class="w-4 h-4"></i> Cetak / PDF
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Ringkasan Eksekutif AI -->
+                <div id="rapor-ai-summary-box" class="hidden rounded-2xl bg-emerald-500/10 border border-emerald-400/30 p-4 text-xs sm:text-sm text-emerald-100 leading-relaxed"></div>
+
+                <!-- Pratinjau Kertas Dokumen Word (Format Tabel 5 Kolom Sama Persis Referensi) -->
+                <div class="overflow-x-auto pb-2">
+                  <div id="rapor-irb-live-preview" class="blangko-paper rounded-xl p-6 sm:p-8 min-w-[920px] max-w-[1120px] mx-auto">
+                    <!-- Rendered dynamically by JS -->
+                  </div>
+                </div>
+
+                <!-- Baris Aksi Tambah/Bersihkan -->
+                <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-white/10">
+                  <p class="text-[11px] text-slate-400">Tip: Anda dapat langsung mengunduh dalam format Microsoft Word (.doc) dengan layout tabel yang sama persis seperti contoh referensi.</p>
+                  <button type="button" onclick="clearRaporAIAnalysis()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 border border-rose-400/30 text-rose-200 text-xs font-semibold transition">
+                    <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Hapus Hasil Analisis
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
         <!-- ====================================================
-             TAB 6: PILAR 2 - PERENCANAAN & EVALUASI
+             TAB 6: PILAR 2 - PERENCANAAN & EVALUASI PENGAWASAN
              ==================================================== -->
         <section id="tab-pilar2" class="tab-section hidden space-y-6">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
               <span class="text-xs font-bold uppercase tracking-wider text-teal-300">Pilar Utama 2</span>
-              <h2 class="text-2xl font-extrabold text-white">Perencanaan & Evaluasi Pengawasan</h2>
-              <p class="text-sm text-slate-300">Program kerja (Tahunan, Semester 1, Semester 2), analisis 6 dimensi Rapor Pendidikan, dan pelaporan formal.</p>
+              <h2 class="text-2xl font-extrabold text-white">Perencanaan &amp; Evaluasi Pengawasan</h2>
+              <p class="text-sm text-slate-300">Penyusunan program pengawasan tahunan/semester, analisis ketercapaian mutu Rapor Pendidikan, dan tindak lanjut.</p>
             </div>
             <div class="glass-card rounded-2xl px-4 py-2.5 border border-teal-400/30 text-xs">
               Sekolah Aktif: <strong id="pilar2-school-name" class="text-teal-200">-</strong>
@@ -1307,130 +1423,111 @@
           <div id="pilar2-empty-guard" class="hidden glass-card rounded-3xl p-8 text-center space-y-3"></div>
 
           <div id="pilar2-content" class="space-y-6">
-            <!-- Program Pengawasan -->
-            <div class="glass-card rounded-3xl p-5 sm:p-6 space-y-5">
-              <div class="flex flex-wrap items-center justify-between gap-3">
-                <div>
+            <div class="grid grid-cols-1 xl:grid-cols-12 gap-6">
+              <!-- 1. Program Pengawasan -->
+              <div class="xl:col-span-6 glass-card rounded-3xl p-5 sm:p-6 space-y-4">
+                <div class="flex flex-wrap items-center justify-between gap-2">
                   <h3 class="text-lg font-bold text-white flex items-center gap-2">
                     <i data-lucide="calendar-check-2" class="w-5 h-5 text-cyan-300"></i>
-                    Program Pengawasan (Tahunan / Semester 1 / Semester 2)
+                    Program Pengawasan
                   </h3>
-                  <p class="text-xs text-slate-300">Klik badge status untuk mengubah progres: Direncanakan → Berjalan → Selesai.</p>
-                </div>
-                <div class="flex items-center gap-2">
-                  <label for="filter-semester" class="text-xs text-slate-300">Filter:</label>
                   <select id="filter-semester" onchange="renderPrograms()" class="glass-input rounded-xl px-3 py-1.5 text-xs font-semibold">
                     <option value="Semua">Semua Periode</option>
-                    <option value="Tahunan">Tahunan</option>
-                    <option value="Semester 1">Semester 1</option>
-                    <option value="Semester 2">Semester 2</option>
+                    <option value="Semester Ganjil">Semester Ganjil</option>
+                    <option value="Semester Genap">Semester Genap</option>
+                    <option value="Tahunan">Program Tahunan</option>
                   </select>
                 </div>
-              </div>
 
-              <form onsubmit="addProgram(event)" class="grid grid-cols-1 md:grid-cols-12 gap-3 bg-white/5 p-4 rounded-2xl border border-white/10">
-                <div class="md:col-span-5">
-                  <input id="prog-title" type="text" required placeholder="Nama Program Pengawasan berbasis Rapor Pendidikan..." class="glass-input w-full rounded-xl px-3.5 py-2 text-sm" />
-                </div>
-                <div class="md:col-span-3">
-                  <select id="prog-semester" class="glass-input w-full rounded-xl px-3.5 py-2 text-sm">
-                    <option value="Tahunan">Tahunan</option>
-                    <option value="Semester 1">Semester 1</option>
-                    <option value="Semester 2">Semester 2</option>
+                <form onsubmit="addProgram(event)" class="grid grid-cols-1 sm:grid-cols-12 gap-2.5 bg-white/5 p-3.5 rounded-2xl border border-white/10">
+                  <input id="prog-title" type="text" required placeholder="Nama Program / Agenda Pengawasan..." class="glass-input sm:col-span-12 rounded-xl px-3 py-2 text-sm" />
+                  <select id="prog-semester" class="glass-input sm:col-span-5 rounded-xl px-3 py-2 text-xs font-semibold">
+                    <option value="Semester Ganjil">Semester Ganjil</option>
+                    <option value="Semester Genap">Semester Genap</option>
+                    <option value="Tahunan">Program Tahunan</option>
                   </select>
-                </div>
-                <div class="md:col-span-2">
-                  <select id="prog-status" class="glass-input w-full rounded-xl px-3.5 py-2 text-sm">
+                  <select id="prog-status" class="glass-input sm:col-span-4 rounded-xl px-3 py-2 text-xs font-semibold">
                     <option value="Direncanakan">Direncanakan</option>
                     <option value="Berjalan">Berjalan</option>
                     <option value="Selesai">Selesai</option>
                   </select>
-                </div>
-                <div class="md:col-span-2">
-                  <button type="submit" class="w-full py-2 px-3 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold text-sm transition flex items-center justify-center gap-1.5">
-                    <i data-lucide="plus" class="w-4 h-4"></i> Tambah
+              <!-- 2. Analisis Mutu & Rapor Pendidikan (6 Dimensi SMA/SLB, 8 Dimensi SMK) -->
+              <div class="xl:col-span-6 glass-card rounded-3xl p-5 sm:p-6 space-y-4">
+                <div class="flex flex-wrap items-center justify-between gap-2">
+                  <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                    <i data-lucide="bar-chart-3" class="w-5 h-5 text-teal-300"></i>
+                    <span id="pilar2-rapor-title">Analisis Mutu Rapor Pendidikan (6 Dimensi)</span>
+                  </h3>
+                  <button type="button" onclick="generateAutoRecommendation()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 border border-amber-400/40 text-amber-200 text-xs font-bold transition">
+                    <i data-lucide="wand-2" class="w-3.5 h-3.5"></i> Saran Otomatis
                   </button>
                 </div>
-              </form>
 
-              <div id="program-list" class="space-y-2.5"></div>
-            </div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  <div>
+                    <label for="rapor-literasi" class="block text-[11px] font-semibold text-slate-300 mb-1">A.1 Literasi (%)</label>
+                    <input id="rapor-literasi" type="number" min="0" max="100" step="0.01" class="glass-input w-full rounded-xl px-3 py-2 text-sm font-bold" />
+                  </div>
+                  <div>
+                    <label for="rapor-numerasi" class="block text-[11px] font-semibold text-slate-300 mb-1">A.2 Numerasi (%)</label>
+                    <input id="rapor-numerasi" type="number" min="0" max="100" step="0.01" class="glass-input w-full rounded-xl px-3 py-2 text-sm font-bold" />
+                  </div>
+                  <div>
+                    <label for="rapor-karakter" class="block text-[11px] font-semibold text-slate-300 mb-1">A.3 Karakter (%)</label>
+                    <input id="rapor-karakter" type="number" min="0" max="100" step="0.01" class="glass-input w-full rounded-xl px-3 py-2 text-sm font-bold" />
+                  </div>
+                  <div>
+                    <label for="rapor-keamanan" class="block text-[11px] font-semibold text-slate-300 mb-1">D.4 Iklim Keamanan (%)</label>
+                    <input id="rapor-keamanan" type="number" min="0" max="100" step="0.01" class="glass-input w-full rounded-xl px-3 py-2 text-sm font-bold" />
+                  </div>
+                  <div>
+                    <label for="rapor-kebinekaan" class="block text-[11px] font-semibold text-slate-300 mb-1">D.8 Iklim Kebinekaan (%)</label>
+                    <input id="rapor-kebinekaan" type="number" min="0" max="100" step="0.01" class="glass-input w-full rounded-xl px-3 py-2 text-sm font-bold" />
+                  </div>
+                  <div>
+                    <label for="rapor-pembelajaran" class="block text-[11px] font-semibold text-slate-300 mb-1">D.1 Pembelajaran (%)</label>
+                    <input id="rapor-pembelajaran" type="number" min="0" max="100" step="0.01" class="glass-input w-full rounded-xl px-3 py-2 text-sm font-bold" />
+                  </div>
+                  <div id="rapor-smk-extra-1" class="hidden">
+                    <label for="rapor-penyerapan" class="block text-[11px] font-semibold text-amber-200 mb-1">A.4 Penyerapan Lulusan SMK (%)</label>
+                    <input id="rapor-penyerapan" type="number" min="0" max="100" step="0.01" class="glass-input w-full rounded-xl px-3 py-2 text-sm font-bold border-amber-400/40" />
+                  </div>
+                  <div id="rapor-smk-extra-2" class="hidden sm:col-span-2">
+                    <label for="rapor-kemitraan" class="block text-[11px] font-semibold text-amber-200 mb-1">D.17 Kemitraan &amp; Keselarasan DUDI (%)</label>
+                    <input id="rapor-kemitraan" type="number" min="0" max="100" step="0.01" class="glass-input w-full rounded-xl px-3 py-2 text-sm font-bold border-amber-400/40" />
+                  </div>
+                </div>
 
-            <!-- Analisis Rapor Pendidikan (6 Dimensi) -->
-            <div class="glass-card rounded-3xl p-5 sm:p-6 space-y-5">
-              <div class="flex flex-wrap items-center justify-between gap-3">
-                <div>
-                  <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                    <i data-lucide="search-check" class="w-5 h-5 text-amber-300"></i>
-                    Analisis Ketercapaian Mutu (6 Dimensi Rapor Pendidikan)
-                  </h3>
-                  <p class="text-xs text-slate-300">Nilai yang disimpan langsung memperbarui Grafik Bar di Dashboard.</p>
+                <div class="space-y-2">
+                  <label for="root-cause-input" class="block text-xs font-semibold text-slate-200">Identifikasi Akar Masalah</label>
+                  <textarea id="root-cause-input" rows="2" placeholder="Tuliskan akar masalah utama dari capaian Rapor Pendidikan..." class="glass-input w-full rounded-2xl p-3 text-sm"></textarea>
                 </div>
-                <button onclick="generateAutoRecommendation()" class="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-amber-400/20 hover:bg-amber-400/30 border border-amber-300/40 text-amber-100 text-xs font-bold transition">
-                  <i data-lucide="wand-2" class="w-4 h-4"></i> Generator Rekomendasi & Tindak Lanjut
-                </button>
-              </div>
 
-              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                <div class="bg-white/5 border border-white/10 rounded-2xl p-4">
-                  <label class="block text-xs font-semibold text-cyan-200 mb-1.5">Kemampuan Literasi (0–100)</label>
-                  <input id="rapor-literasi" type="number" min="0" max="100" class="glass-input w-full rounded-xl px-3 py-2 text-lg font-bold" />
+                <div class="space-y-2">
+                  <label for="followup-rec-input" class="block text-xs font-semibold text-slate-200">Rekomendasi Strategis &amp; Tindak Lanjut</label>
+                  <textarea id="followup-rec-input" rows="2" placeholder="Tuliskan rencana tindak lanjut bagi sekolah binaan dan Dinas Pendidikan..." class="glass-input w-full rounded-2xl p-3 text-sm"></textarea>
                 </div>
-                <div class="bg-white/5 border border-white/10 rounded-2xl p-4">
-                  <label class="block text-xs font-semibold text-blue-200 mb-1.5">Kemampuan Numerasi (0–100)</label>
-                  <input id="rapor-numerasi" type="number" min="0" max="100" class="glass-input w-full rounded-xl px-3 py-2 text-lg font-bold" />
-                </div>
-                <div class="bg-white/5 border border-white/10 rounded-2xl p-4">
-                  <label class="block text-xs font-semibold text-purple-200 mb-1.5">Karakter Peserta Didik (0–100)</label>
-                  <input id="rapor-karakter" type="number" min="0" max="100" class="glass-input w-full rounded-xl px-3 py-2 text-lg font-bold" />
-                </div>
-                <div class="bg-white/5 border border-white/10 rounded-2xl p-4">
-                  <label class="block text-xs font-semibold text-teal-200 mb-1.5">Iklim Keamanan Sekolah (0–100)</label>
-                  <input id="rapor-keamanan" type="number" min="0" max="100" class="glass-input w-full rounded-xl px-3 py-2 text-lg font-bold" />
-                </div>
-                <div class="bg-white/5 border border-white/10 rounded-2xl p-4">
-                  <label class="block text-xs font-semibold text-amber-200 mb-1.5">Iklim Kebinekaan (0–100)</label>
-                  <input id="rapor-kebinekaan" type="number" min="0" max="100" class="glass-input w-full rounded-xl px-3 py-2 text-lg font-bold" />
-                </div>
-                <div class="bg-white/5 border border-white/10 rounded-2xl p-4">
-                  <label class="block text-xs font-semibold text-emerald-200 mb-1.5">Kualitas Pembelajaran (0–100)</label>
-                  <input id="rapor-pembelajaran" type="number" min="0" max="100" class="glass-input w-full rounded-xl px-3 py-2 text-lg font-bold" />
-                </div>
-              </div>
 
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label for="root-cause-input" class="block text-xs font-semibold text-slate-200 mb-1.5">Identifikasi Akar Masalah & Kendala</label>
-                  <textarea id="root-cause-input" rows="3" placeholder="Tuliskan akar masalah ketercapaian mutu..." class="glass-input w-full rounded-2xl p-3.5 text-sm"></textarea>
+                <div class="flex justify-end">
+                  <button type="button" onclick="saveRaporAnalysis()" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-400 hover:to-emerald-500 text-white text-sm font-bold shadow-lg transition">
+                    <i data-lucide="save" class="w-4 h-4"></i> Simpan Analisis Mutu
+                  </button>
                 </div>
-                <div>
-                  <label for="followup-rec-input" class="block text-xs font-semibold text-slate-200 mb-1.5">Rekomendasi Strategis & Tindak Lanjut</label>
-                  <textarea id="followup-rec-input" rows="3" placeholder="Rekomendasi untuk Kepala Sekolah, Guru, dan Dinas Pendidikan..." class="glass-input w-full rounded-2xl p-3.5 text-sm"></textarea>
-                </div>
-              </div>
-
-              <div class="flex justify-end">
-                <button onclick="saveRaporAnalysis()" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-gradient-to-r from-teal-500 to-cyan-600 hover:from-teal-400 hover:to-cyan-500 text-white text-sm font-bold shadow-lg transition">
-                  <i data-lucide="save" class="w-4 h-4"></i> Simpan Analisis Mutu
-                </button>
               </div>
             </div>
 
-            <!-- Live Report Preview -->
-            <div class="glass-card rounded-3xl p-5 sm:p-6 space-y-4 border border-cyan-400/30">
-              <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/15 pb-4">
-                <div>
-                  <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                    <i data-lucide="file-text" class="w-5 h-5 text-cyan-300"></i>
-                    Ringkasan Laporan Berkala ke Dinas Pendidikan
-                  </h3>
-                  <p class="text-xs text-slate-300">Format siap cetak formal berisi identitas pengawas, capaian 8 SNP, Rapor Pendidikan, dan rekomendasi.</p>
-                </div>
-                <button onclick="printOfficialReport()" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white text-sm font-bold shadow-lg transition">
-                  <i data-lucide="printer" class="w-4 h-4"></i> Cetak / Simpan PDF
+            <!-- 3. Ringkasan Laporan Pengawasan Sekolah Aktif -->
+            <div class="glass-card rounded-3xl p-5 sm:p-6 space-y-4">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <h3 class="text-base font-bold text-white flex items-center gap-2">
+                  <i data-lucide="file-check-2" class="w-5 h-5 text-amber-300"></i>
+                  Pratinjau Ringkasan Laporan &amp; Tindak Lanjut
+                </h3>
+                <button type="button" onclick="printOfficialReport()" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-400/35 text-cyan-200 text-xs font-bold transition">
+                  <i data-lucide="printer" class="w-3.5 h-3.5"></i> Cetak Laporan Formal
                 </button>
               </div>
-              <div id="live-report-preview" class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm"></div>
+              <div id="live-report-preview" class="grid grid-cols-1 md:grid-cols-3 gap-4"></div>
             </div>
           </div>
         </section>
@@ -2073,7 +2170,19 @@
         snp: { isi: 75, proses: 75, skl: 75, ptk: 75, sarpras: 70, pengelolaan: 75, pembiayaan: 75, penilaian: 75 },
         evaluations: [],
         programs: [],
-        rapor: { literasi: 70, numerasi: 68, karakter: 75, keamanan: 80, kebinekaan: 80, pembelajaran: 72, rootCause: '', recommendation: '' },
+        rapor: {
+          literasi: 70,
+          numerasi: 68,
+          karakter: 75,
+          keamanan: 80,
+          kebinekaan: 80,
+          pembelajaran: 72,
+          penyerapanLulusan: 70,
+          kemitraanDudi: 70,
+          rootCause: '',
+          recommendation: ''
+        },
+        raporAnalysisIRB: null,
         coaching: [],
         karakter: { antiPerundungan: true, inklusif: true, toleransi: false, profilPelajar: false, disiplinPositif: false },
         kombel: [],
@@ -2856,23 +2965,23 @@
       const raporWrap = document.getElementById('chart-rapor-wrap');
 
       if (!school) {
-        document.getElementById('chart-snp-subtitle').textContent = 'Belum ada sekolah binaan aktif';
+        if (snpRadarChart) { snpRadarChart.destroy(); snpRadarChart = null; }
+        if (raporBarChart) { raporBarChart.destroy(); raporBarChart = null; }
         snpEmpty.classList.remove('hidden');
         snpWrap.classList.add('hidden');
         raporEmpty.classList.remove('hidden');
         raporWrap.classList.add('hidden');
-        if (snpRadarChart) { snpRadarChart.destroy(); snpRadarChart = null; }
-        if (raporBarChart) { raporBarChart.destroy(); raporBarChart = null; }
+        document.getElementById('chart-snp-subtitle').textContent = 'Belum ada sekolah binaan aktif';
         return;
       }
 
-      document.getElementById('chart-snp-subtitle').textContent = `[${school.level}] ${school.name}`;
       snpEmpty.classList.add('hidden');
       snpWrap.classList.remove('hidden');
       raporEmpty.classList.add('hidden');
       raporWrap.classList.remove('hidden');
+      document.getElementById('chart-snp-subtitle').textContent = `[${school.level}] ${school.name} • Rata-rata ${calcSnpAvg(school)}%`;
 
-      const snpData = SNP_LABELS.map(item => Number(school.snp[item.key]) || 0);
+      // Radar Chart 8 SNP
       const snpCtx = document.getElementById('chart-snp-radar').getContext('2d');
       if (snpRadarChart) snpRadarChart.destroy();
       snpRadarChart = new Chart(snpCtx, {
@@ -2881,12 +2990,12 @@
           labels: ['Isi', 'Proses', 'SKL', 'PTK', 'Sarpras', 'Pengelolaan', 'Pembiayaan', 'Penilaian'],
           datasets: [{
             label: 'Capaian 8 SNP (%)',
-            data: snpData,
+            data: SNP_LABELS.map(item => Number(school.snp[item.key]) || 0),
             backgroundColor: 'rgba(56, 189, 248, 0.25)',
             borderColor: '#38bdf8',
-            borderWidth: 2.5,
-            pointBackgroundColor: '#818cf8',
-            pointBorderColor: '#ffffff',
+            borderWidth: 2,
+            pointBackgroundColor: '#e0f2fe',
+            pointBorderColor: '#0284c7',
             pointRadius: 4
           }]
         },
@@ -2904,30 +3013,86 @@
             }
           },
           plugins: {
-            legend: { labels: { color: '#e2e8f0', font: { size: 11 } } }
+            legend: { display: false }
           }
         }
       });
 
-      const r = school.rapor;
+      // Bar Chart Rapor Pendidikan (6 Dimensi SMA/SMA-LB, 8 Dimensi SMK)
+      const r = school.rapor || {};
+      const isSmk = school.level === 'SMK';
+      const titleEl = document.getElementById('chart-rapor-title');
+      const subEl = document.getElementById('chart-rapor-subtitle');
+      if (titleEl) {
+        titleEl.textContent = isSmk
+          ? 'Indikator Rapor Pendidikan (8 Dimensi — Khusus SMK)'
+          : `Indikator Rapor Pendidikan (6 Dimensi — ${school.level})`;
+      }
+      if (subEl) {
+        subEl.textContent = isSmk
+          ? 'Literasi, Numerasi, Karakter, Keamanan, Kebinekaan, Pembelajaran, Penyerapan Lulusan (A.4) & Kemitraan DUDI (D.17)'
+          : 'Literasi (A.1), Numerasi (A.2), Karakter (A.3), Keamanan (D.4), Kebinekaan (D.8) & Kualitas Pembelajaran (D.1)';
+      }
+
+      const raporLabels = isSmk
+        ? ['Literasi (A.1)', 'Numerasi (A.2)', 'Karakter (A.3)', 'Keamanan (D.4)', 'Kebinekaan (D.8)', 'Pembelajaran (D.1)', 'Penyerapan (A.4)', 'Kemitraan (D.17)']
+        : ['Literasi (A.1)', 'Numerasi (A.2)', 'Karakter (A.3)', 'Keamanan (D.4)', 'Kebinekaan (D.8)', 'Pembelajaran (D.1)'];
+
+      const raporValues = isSmk
+        ? [
+            Number(r.literasi) || 0,
+            Number(r.numerasi) || 0,
+            Number(r.karakter) || 0,
+            Number(r.keamanan) || 0,
+            Number(r.kebinekaan) || 0,
+            Number(r.pembelajaran) || 0,
+            Number(r.penyerapanLulusan ?? 0) || 0,
+            Number(r.kemitraanDudi ?? 0) || 0
+          ]
+        : [
+            Number(r.literasi) || 0,
+            Number(r.numerasi) || 0,
+            Number(r.karakter) || 0,
+            Number(r.keamanan) || 0,
+            Number(r.kebinekaan) || 0,
+            Number(r.pembelajaran) || 0
+          ];
+
+      const raporBgColors = isSmk
+        ? [
+            'rgba(56, 189, 248, 0.72)',
+            'rgba(96, 165, 250, 0.72)',
+            'rgba(167, 139, 250, 0.72)',
+            'rgba(45, 212, 191, 0.72)',
+            'rgba(251, 191, 36, 0.72)',
+            'rgba(52, 211, 153, 0.72)',
+            'rgba(249, 115, 22, 0.78)',
+            'rgba(244, 63, 94, 0.78)'
+          ]
+        : [
+            'rgba(56, 189, 248, 0.72)',
+            'rgba(96, 165, 250, 0.72)',
+            'rgba(167, 139, 250, 0.72)',
+            'rgba(45, 212, 191, 0.72)',
+            'rgba(251, 191, 36, 0.72)',
+            'rgba(52, 211, 153, 0.72)'
+          ];
+
+      const raporBorderColors = isSmk
+        ? ['#38bdf8', '#60a5fa', '#a78bfa', '#2dd4bf', '#fbbf24', '#34d399', '#fb923c', '#fb7185']
+        : ['#38bdf8', '#60a5fa', '#a78bfa', '#2dd4bf', '#fbbf24', '#34d399'];
+
       const raporCtx = document.getElementById('chart-rapor-bar').getContext('2d');
       if (raporBarChart) raporBarChart.destroy();
       raporBarChart = new Chart(raporCtx, {
         type: 'bar',
         data: {
-          labels: ['Literasi', 'Numerasi', 'Karakter', 'Keamanan', 'Kebinekaan', 'Pembelajaran'],
+          labels: raporLabels,
           datasets: [{
             label: 'Skor Rapor Pendidikan',
-            data: [r.literasi, r.numerasi, r.karakter, r.keamanan, r.kebinekaan, r.pembelajaran],
-            backgroundColor: [
-              'rgba(56, 189, 248, 0.72)',
-              'rgba(96, 165, 250, 0.72)',
-              'rgba(167, 139, 250, 0.72)',
-              'rgba(45, 212, 191, 0.72)',
-              'rgba(251, 191, 36, 0.72)',
-              'rgba(52, 211, 153, 0.72)'
-            ],
-            borderColor: ['#38bdf8', '#60a5fa', '#a78bfa', '#2dd4bf', '#fbbf24', '#34d399'],
+            data: raporValues,
+            backgroundColor: raporBgColors,
+            borderColor: raporBorderColors,
             borderWidth: 1.5,
             borderRadius: 10
           }]
@@ -2944,7 +3109,7 @@
             },
             x: {
               grid: { display: false },
-              ticks: { color: '#f1f5f9', font: { size: 11, weight: '600' } }
+              ticks: { color: '#f1f5f9', font: { size: isSmk ? 10 : 11, weight: '600' } }
             }
           },
           plugins: {
@@ -3082,7 +3247,9 @@
             <td class="py-3 px-2.5 text-center font-bold text-slate-300">${idx + 1}</td>
             <td class="py-3 px-2.5">
               <div class="font-bold text-white">${escapeHtml(sc.name)}</div>
-              ${sc.kepsek ? `<div class="text-[11px] text-slate-400">Kepsek: ${escapeHtml(sc.kepsek)}</div>` : ''}
+              <div class="text-[11px] text-slate-400">
+                ${sc.kepsek ? `Kepsek: ${escapeHtml(sc.kepsek)} • ` : ''}${escapeHtml(sc.status || 'Negeri')} • Akreditasi ${escapeHtml(sc.akreditasi || '-')}
+              </div>
             </td>
             <td class="py-3 px-2.5 text-center font-mono text-xs text-cyan-200">${escapeHtml(sc.npsn)}</td>
             <td class="py-3 px-2.5 text-center">
@@ -3143,65 +3310,58 @@
     }
 
     function buildBlangkoDocumentHTML() {
-      const c = appState.blangkoConfig;
-      let targetSupervisors = [];
-      if (c.scope === 'active') {
-        const active = getActiveSupervisor();
-        if (active) targetSupervisors = [active];
-      } else {
-        targetSupervisors = appState.supervisors;
-      }
+      const c = appState.blangkoConfig || DEFAULT_BLANGKO_CONFIG;
+      const targetSupervisors = c.scope === 'active'
+        ? (getActiveSupervisor() ? [getActiveSupervisor()] : [])
+        : appState.supervisors;
 
       let rowsHtml = '';
+
       if (targetSupervisors.length === 0) {
-        const emptyCount = c.padToSeven ? 7 : 1;
-        for (let i = 0; i < emptyCount; i++) {
-          rowsHtml += `<tr>`;
-          if (i === 0) {
-            rowsHtml += `<td rowspan="${emptyCount}" style="text-align:center;vertical-align:top;">1</td>`;
-            rowsHtml += `<td rowspan="${emptyCount}" style="vertical-align:top;"><em>(Belum ada data pengawas)</em></td>`;
-          }
-          rowsHtml += `
-            <td style="text-align:center;">${i + 1}</td>
-            <td>&nbsp;</td>
-            <td style="text-align:center;">&nbsp;</td>
-            <td style="text-align:center;">&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-          </tr>`;
-        }
+        rowsHtml = `
+          <tr>
+            <td colspan="8" style="text-align:center; padding:16px; border:1px solid #000000;">
+              Belum ada data pengawas terdaftar. Silakan input data pengawas dan sekolah binaan terlebih dahulu.
+            </td>
+          </tr>
+        `;
       } else {
         targetSupervisors.forEach((sup, supIdx) => {
-          const schools = sup.schools || [];
-          const rowCount = c.padToSeven ? Math.max(MIN_QUOTA, schools.length) : Math.max(1, schools.length);
-          const identitasHtml = `
-            <strong>${escapeHtml(sup.name)}</strong><br/>
+          const schools = Array.isArray(sup.schools) ? sup.schools : [];
+          const totalRows = c.padToSeven ? Math.max(MIN_QUOTA, schools.length) : Math.max(1, schools.length);
+
+          const identityHtml = `
+            <strong>${escapeHtml(sup.name || '-')}</strong><br/>
             NIP. ${escapeHtml(sup.nip || '-')}<br/>
             ${escapeHtml(sup.pangkat || '-')}<br/>
             ${escapeHtml(sup.rank || '-')}<br/>
             Mapel: ${escapeHtml(sup.mapel || '-')}
           `;
-          for (let i = 0; i < rowCount; i++) {
+
+          for (let i = 0; i < totalRows; i++) {
             const sc = schools[i] || null;
-            rowsHtml += `<tr>`;
-            if (i === 0) {
-              rowsHtml += `<td rowspan="${rowCount}" style="text-align:center;vertical-align:top;font-weight:bold;">${supIdx + 1}</td>`;
-              rowsHtml += `<td rowspan="${rowCount}" style="vertical-align:top;">${identitasHtml}</td>`;
-            }
+            const mergedCells = i === 0
+              ? `<td rowspan="${totalRows}" style="text-align:center; vertical-align:top; border:1px solid #000000; padding:5px;">${supIdx + 1}</td>
+                 <td rowspan="${totalRows}" style="vertical-align:top; border:1px solid #000000; padding:5px;">${identityHtml}</td>`
+              : '';
+
             rowsHtml += `
-              <td style="text-align:center;">${i + 1}</td>
-              <td>${sc ? escapeHtml(sc.name) : '&nbsp;'}</td>
-              <td style="text-align:center;">${sc ? escapeHtml(sc.npsn) : '&nbsp;'}</td>
-              <td style="text-align:center;">${sc ? escapeHtml(sc.level) : '&nbsp;'}</td>
-              <td>${sc ? escapeHtml(sc.kabKota || '') : '&nbsp;'}</td>
-              <td>${sc ? escapeHtml(sc.cabdin || '') : '&nbsp;'}</td>
-            </tr>`;
+              <tr>
+                ${mergedCells}
+                <td style="text-align:center; border:1px solid #000000; padding:5px;">${i + 1}</td>
+                <td style="border:1px solid #000000; padding:5px;">${sc ? escapeHtml(sc.name) : '&nbsp;'}</td>
+                <td style="text-align:center; border:1px solid #000000; padding:5px;">${sc ? escapeHtml(sc.npsn) : '&nbsp;'}</td>
+                <td style="text-align:center; border:1px solid #000000; padding:5px;">${sc ? escapeHtml(sc.level) : '&nbsp;'}</td>
+                <td style="border:1px solid #000000; padding:5px;">${sc ? escapeHtml(sc.kabKota || '') : '&nbsp;'}</td>
+                <td style="border:1px solid #000000; padding:5px;">${sc ? escapeHtml(sc.cabdin || '') : '&nbsp;'}</td>
+              </tr>
+            `;
           }
         });
       }
 
       return `
-        <div style="font-family: Arial, Helvetica, sans-serif; color: #000000; font-size: 11px;">
+        <div style="font-family: Arial, Helvetica, sans-serif; color: #000000; font-size: 11px; line-height: 1.4;">
           <div style="text-align:center; font-weight:bold; font-size:13px; margin-bottom:12px; text-transform:uppercase;">
             ${escapeHtml(c.title || DEFAULT_BLANGKO_CONFIG.title)}
           </div>
@@ -3209,7 +3369,7 @@
           <table style="width:100%; border-collapse:collapse; margin-bottom:10px; font-size:11px; color:#000000;">
             <tr>
               <td style="width:90px; border:none; padding:2px 0;">Nomor</td>
-              <td style="width:12px; border:none; padding:2px 0;">:</td>
+              <td style="width:14px; border:none; padding:2px 0;">:</td>
               <td style="border:none; padding:2px 0;">${escapeHtml(c.nomor || '')}</td>
             </tr>
             <tr>
@@ -3218,23 +3378,23 @@
               <td style="border:none; padding:2px 0;">${escapeHtml(c.tanggal || '')}</td>
             </tr>
             <tr>
-              <td style="border:none; padding:2px 0;">Tentang</td>
-              <td style="border:none; padding:2px 0;">:</td>
+              <td style="border:none; padding:2px 0; vertical-align:top;">Tentang</td>
+              <td style="border:none; padding:2px 0; vertical-align:top;">:</td>
               <td style="border:none; padding:2px 0;">${escapeHtml(c.tentang || '')}</td>
             </tr>
           </table>
 
-          <table class="blangko-table" border="1" cellspacing="0" cellpadding="4" style="width:100%; border-collapse:collapse; border:1px solid #000000; font-size:10.5px; color:#000000;">
+          <table class="blangko-table" border="1" cellspacing="0" cellpadding="5" style="width:100%; border-collapse:collapse; border:1px solid #000000; font-size:10.5px; color:#000000;">
             <thead>
               <tr style="background-color:#f2f2f2;">
                 <th style="width:4%; text-align:center; border:1px solid #000000; padding:6px 4px;">NO</th>
-                <th style="width:27%; text-align:center; border:1px solid #000000; padding:6px 4px;">NAMA/NIP/PANGKAT, GOL.<br/>RUANG/JABATAN/MAPEL</th>
+                <th style="width:27%; text-align:center; border:1px solid #000000; padding:6px 5px;">NAMA/NIP/PANGKAT, GOL.<br/>RUANG/JABATAN/MAPEL</th>
                 <th style="width:4%; text-align:center; border:1px solid #000000; padding:6px 4px;">NO</th>
-                <th style="width:24%; text-align:center; border:1px solid #000000; padding:6px 4px;">NAMA SEKOLAH</th>
+                <th style="width:23%; text-align:center; border:1px solid #000000; padding:6px 5px;">NAMA SEKOLAH</th>
                 <th style="width:10%; text-align:center; border:1px solid #000000; padding:6px 4px;">NPSN</th>
                 <th style="width:8%; text-align:center; border:1px solid #000000; padding:6px 4px;">JENJANG</th>
-                <th style="width:11%; text-align:center; border:1px solid #000000; padding:6px 4px;">KAB./KOTA</th>
-                <th style="width:12%; text-align:center; border:1px solid #000000; padding:6px 4px;">CABDISDIK<br/>WILAYAH</th>
+                <th style="width:12%; text-align:center; border:1px solid #000000; padding:6px 5px;">KAB./KOTA</th>
+                <th style="width:12%; text-align:center; border:1px solid #000000; padding:6px 5px;">CABDISDIK<br/>WILAYAH</th>
               </tr>
             </thead>
             <tbody>
@@ -3242,10 +3402,10 @@
             </tbody>
           </table>
 
-          <table style="width:100%; border-collapse:collapse; margin-top:22px; font-size:11px; color:#000000;">
+          <table style="width:100%; border-collapse:collapse; margin-top:24px; font-size:11px; color:#000000;">
             <tr>
-              <td style="width:65%; border:none;"></td>
-              <td style="width:35%; border:none; text-align:left; vertical-align:top; line-height:1.45;">
+              <td style="width:62%; border:none;">&nbsp;</td>
+              <td style="width:38%; border:none; vertical-align:top;">
                 ${escapeHtml(c.signPlace || '')}<br/>
                 ${escapeHtml(c.signOrg || '')}<br/>
                 ${escapeHtml(c.signRegion || '')}<br/>
@@ -3261,9 +3421,9 @@
     }
 
     function renderBlangkoPreview() {
-      const previewEl = document.getElementById('blangko-live-preview');
-      if (!previewEl) return;
-      previewEl.innerHTML = buildBlangkoDocumentHTML();
+      const container = document.getElementById('blangko-live-preview');
+      if (!container) return;
+      container.innerHTML = buildBlangkoDocumentHTML();
     }
 
     function downloadBlangkoWord() {
@@ -3284,7 +3444,7 @@
             div.WordSection1 { page: WordSection1; }
             body { font-family: Arial, Helvetica, sans-serif; font-size: 10pt; color: #000000; }
             table.blangko-table { width: 100%; border-collapse: collapse; }
-            table.blangko-table th, table.blangko-table td { border: 1px solid #000000; padding: 4px 5px; }
+            table.blangko-table th, table.blangko-table td { border: 1px solid #000000; padding: 5px 6px; vertical-align: top; }
           </style>
         </head>
         <body>
@@ -3296,12 +3456,12 @@
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `Blangko_Pembagian_Tugas_Dikmen_${new Date().toISOString().slice(0, 10)}.doc`;
+      a.download = `Blangko_Pembagian_Tugas_Sekolah_Binaan_${new Date().toISOString().slice(0, 10)}.doc`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-      showToast('File Microsoft Word (.doc) Landscape berhasil diunduh!');
+      showToast('File Word (.doc) Blangko Pembagian Tugas berhasil diunduh!');
     }
 
     function copyBlangkoForGoogleDocs() {
@@ -3459,6 +3619,530 @@
           `;
         }).join('');
       }
+
+      // 1E: Analisis Rapor Pendidikan AI (IRB)
+      renderRaporAISection(school);
+    }
+
+    // ==========================================================
+    // PILAR 1E: ANALISIS RAPOR PENDIDIKAN OTOMATIS (AI - IRB)
+    // ==========================================================
+    let uploadedRaporPdf = {
+      schoolId: null,
+      fileName: '',
+      fileSize: 0,
+      base64: ''
+    };
+
+    function triggerUploadRaporPdf() {
+      const input = document.getElementById('rapor-pdf-input');
+      if (input) input.click();
+    }
+
+    function handleRaporPdfSelected(e) {
+      const file = e.target.files?.[0];
+      const school = getActiveSchool();
+      if (!file || !school) return;
+
+      const isPdf = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
+      if (!isPdf) {
+        showToast('Harap unggah file Rapor Pendidikan dalam format PDF (.pdf).', 'error');
+        e.target.value = '';
+        return;
+      }
+
+      const maxBytes = 15 * 1024 * 1024; // 15 MB
+      if (file.size > maxBytes) {
+        showToast('Ukuran file PDF terlalu besar (maksimal 15 MB).', 'error');
+        e.target.value = '';
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function (ev) {
+        try {
+          const dataUrl = ev.target.result || '';
+          const base64 = String(dataUrl).split(',')[1] || '';
+          if (!base64) throw new Error('Gagal membaca data PDF.');
+
+          uploadedRaporPdf = {
+            schoolId: school.id,
+            fileName: file.name,
+            fileSize: file.size,
+            base64
+          };
+
+          const sizeKb = Math.max(1, Math.round(file.size / 1024));
+          const statusEl = document.getElementById('rapor-pdf-status');
+          if (statusEl) {
+            statusEl.innerHTML = `<span class="text-emerald-200 font-bold">✓ ${escapeHtml(file.name)}</span> <span class="text-slate-400">(${sizeKb} KB)</span>`;
+          }
+          const runBtn = document.getElementById('btn-run-rapor-ai');
+          if (runBtn) runBtn.disabled = false;
+          showToast(`File "${file.name}" siap dianalisis otomatis oleh AI.`, 'info');
+        } catch (err) {
+          showToast('Gagal membaca file PDF yang diunggah.', 'error');
+        }
+        e.target.value = '';
+      };
+      reader.onerror = function () {
+        showToast('Terjadi kesalahan saat membaca file PDF.', 'error');
+        e.target.value = '';
+      };
+      reader.readAsDataURL(file);
+    }
+
+    async function fetchGeminiWithBackoff(url, payload, maxRetries = 4) {
+      let delay = 1000;
+      for (let attempt = 0; attempt <= maxRetries; attempt++) {
+        try {
+          const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          if (response.ok) {
+            return await response.json();
+          }
+          if (attempt === maxRetries || (response.status !== 429 && response.status < 500)) {
+            const errText = await response.text().catch(() => '');
+            throw new Error(`HTTP ${response.status}: ${errText || response.statusText}`);
+          }
+        } catch (err) {
+          if (attempt === maxRetries) throw err;
+        }
+        await new Promise(resolve => setTimeout(resolve, delay));
+        delay *= 2;
+      }
+    }
+
+    async function runAutoRaporAnalysis() {
+      const school = getActiveSchool();
+      if (!school) {
+        showToast('Pilih sekolah binaan aktif terlebih dahulu.', 'warning');
+        return;
+      }
+      if (!uploadedRaporPdf.base64 || uploadedRaporPdf.schoolId !== school.id) {
+        showToast('Silakan upload file PDF Rapor Pendidikan terlebih dahulu.', 'warning');
+        return;
+      }
+
+      const loadingEl = document.getElementById('rapor-ai-loading');
+      const runBtn = document.getElementById('btn-run-rapor-ai');
+      if (loadingEl) loadingEl.classList.remove('hidden');
+      if (runBtn) {
+        runBtn.disabled = true;
+        runBtn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Menganalisis...`;
+        if (window.lucide) lucide.createIcons();
+      }
+
+      const isSmk = school.level === 'SMK';
+      const dimensiDesc = isSmk
+        ? `KHUSUS JENJANG SMK — WAJIB MENGGUNAKAN 8 DIMENSI PRIORITAS RAPOR PENDIDIKAN:
+   1. A.1 Kemampuan Literasi
+   2. A.2 Kemampuan Numerasi
+   3. A.3 Indeks Karakter
+   4. D.1 Kualitas Pembelajaran
+   5. D.4 Iklim Keamanan Satuan Pendidikan
+   6. D.8 Iklim Kebinekaan
+   7. A.4 Penyerapan Lulusan SMK
+   8. D.17 Kemitraan dan Keselarasan dengan Dunia Kerja`
+        : `JENJANG ${school.level} — MENGGUNAKAN 6 DIMENSI PRIORITAS RAPOR PENDIDIKAN:
+   1. A.1 Kemampuan Literasi
+   2. A.2 Kemampuan Numerasi
+   3. A.3 Indeks Karakter
+   4. D.1 Kualitas Pembelajaran
+   5. D.4 Iklim Keamanan Satuan Pendidikan
+   6. D.8 Iklim Kebinekaan`;
+
+      const systemPrompt = `Anda adalah Pengawas Sekolah Pendidikan Menengah (SMA/SMK/SMA-LB) senior dan pakar Perencanaan Berbasis Data (PBD) Kemendikdasmen RI.
+Tugas Anda adalah menganalisis dokumen PDF Rapor Pendidikan yang diunggah oleh pengawas sekolah menggunakan siklus IRB (Identifikasi, Refleksi, dan Benahi) serta mengekstrak skor numerik (0–100) dari setiap dimensi untuk disinkronkan ke Grafik Dashboard.
+
+${dimensiDesc}
+
+RAMBU-RAMBU ANALISIS (FORMAT REFERENSI BUKAN BAKU, SESUAIKAN DENGAN DATA AKTUAL DI PDF):
+1. Identifikasi (Menentukan Masalah Utama):
+   - Temukan indikator Rapor Pendidikan yang nilainya belum mencapai target (diutamakan berwarna merah/kurang atau kuning/sedang, atau mengalami penurunan skor) berdasarkan ${isSmk ? '8 dimensi prioritas SMK di atas (termasuk A.4 Penyerapan Lulusan SMK dan D.17 Kemitraan dan Keselarasan dengan Dunia Kerja)' : '6 dimensi prioritas SMA/SLB di atas'}.
+   - Jika seluruh indikator sudah baik, tetap identifikasi indikator dengan skor terendah atau yang mengalami penurunan untuk peningkatan mutu berkelanjutan.
+2. Capaian / Nilai Rapor:
+   - Cantumkan nilai numerik aktual beserta label kategori capaian dari dokumen PDF (contoh: "Nilai: 58,23 (Kurang / Sedang)" atau sesuai angka pada dokumen).
+3. Refleksi (Mencari Akar Masalah yang Berkontribusi):
+   - Telusuri indikator Level 2 atau dimensi lain (misalnya dimensi D proses pembelajaran, kompetensi pendidik, kepemimpinan, atau keselarasan kurikulum dengan DUDI untuk SMK) dari dokumen PDF yang menjadi akar penyebab turunnya nilai di Level 1.
+   - Berikan 2 sampai 4 poin akar masalah yang spesifik berdasarkan isi PDF (sertakan kode indikator jika tersedia di dokumen).
+4. Benahi (Rekomendasi Program / Kegiatan):
+   - Susun 2 sampai 4 program/kegiatan konkret yang dapat dimasukkan ke dalam RKS dan RKAS dengan memanfaatkan inspirasi Benahi Rapor Pendidikan / Ruang GTK / Komunitas Belajar.
+5. Ekstraksi Skor Dimensi (skorDimensi):
+   - Ekstrak nilai angka (0 sampai 100) dari PDF untuk setiap dimensi (${isSmk ? 'literasi, numerasi, karakter, keamanan, kebinekaan, pembelajaran, penyerapanLulusan, kemitraanDudi' : 'literasi, numerasi, karakter, keamanan, kebinekaan, pembelajaran'}). Jika suatu indikator tidak ditemukan di PDF, berikan nilai -1.
+6. Gunakan bahasa Indonesia formal, jelas, objektif, dan profesional.`;
+
+      const userPrompt = `Analisislah dokumen PDF Rapor Pendidikan terlampir untuk satuan pendidikan "${school.name}" (Jenjang: ${school.level}, NPSN: ${school.npsn}).
+Gunakan ${isSmk ? '8 Dimensi khusus SMK (termasuk A.4 Penyerapan Lulusan SMK dan D.17 Kemitraan dan Keselarasan dengan Dunia Kerja)' : '6 Dimensi untuk SMA/SMA-LB'}.
+Hasilkan tabel analisis IRB yang komprehensif serta ekstrak nilai numerik setiap dimensi ke dalam field skorDimensi agar dapat disinkronkan langsung ke Grafik Indikator Rapor Pendidikan. Jangan mengarang angka; gunakan angka dan fakta aktual dari dokumen PDF yang diunggah.`;
+
+      const skorDimensiProps = {
+        literasi: { type: 'NUMBER', description: 'Skor A.1 Kemampuan Literasi (0-100), atau -1 jika tidak ada di PDF' },
+        numerasi: { type: 'NUMBER', description: 'Skor A.2 Kemampuan Numerasi (0-100), atau -1 jika tidak ada di PDF' },
+        karakter: { type: 'NUMBER', description: 'Skor A.3 Indeks Karakter (0-100), atau -1 jika tidak ada di PDF' },
+        keamanan: { type: 'NUMBER', description: 'Skor D.4 Iklim Keamanan Satuan Pendidikan (0-100), atau -1 jika tidak ada di PDF' },
+        kebinekaan: { type: 'NUMBER', description: 'Skor D.8 Iklim Kebinekaan (0-100), atau -1 jika tidak ada di PDF' },
+        pembelajaran: { type: 'NUMBER', description: 'Skor D.1 Kualitas Pembelajaran (0-100), atau -1 jika tidak ada di PDF' }
+      };
+      const skorDimensiRequired = ['literasi', 'numerasi', 'karakter', 'keamanan', 'kebinekaan', 'pembelajaran'];
+
+      if (isSmk) {
+        skorDimensiProps.penyerapanLulusan = { type: 'NUMBER', description: 'Skor A.4 Penyerapan Lulusan SMK (0-100), atau -1 jika tidak ada di PDF' };
+        skorDimensiProps.kemitraanDudi = { type: 'NUMBER', description: 'Skor D.17 Kemitraan dan Keselarasan dengan Dunia Kerja (0-100), atau -1 jika tidak ada di PDF' };
+        skorDimensiRequired.push('penyerapanLulusan', 'kemitraanDudi');
+      }
+
+      const payload = {
+        contents: [
+          {
+            role: 'user',
+            parts: [
+              { text: userPrompt },
+              {
+                inlineData: {
+                  mimeType: 'application/pdf',
+                  data: uploadedRaporPdf.base64
+                }
+              }
+            ]
+          }
+        ],
+        systemInstruction: {
+          parts: [{ text: systemPrompt }]
+        },
+        generationConfig: {
+          responseMimeType: 'application/json',
+          responseSchema: {
+            type: 'OBJECT',
+            properties: {
+              tahunRapor: { type: 'STRING', description: 'Tahun Rapor Pendidikan yang tertera pada dokumen PDF, jika ada' },
+              ringkasanEksekutif: { type: 'STRING', description: 'Ringkasan eksekutif 2-3 kalimat mengenai potret mutu sekolah berdasarkan PDF' },
+              skorDimensi: {
+                type: 'OBJECT',
+                description: 'Skor numerik (0-100) dari masing-masing dimensi Rapor Pendidikan untuk sinkronisasi grafik dashboard',
+                properties: skorDimensiProps,
+                required: skorDimensiRequired
+              },
+              rows: {
+                type: 'ARRAY',
+                description: 'Daftar baris tabel analisis IRB (Identifikasi, Refleksi, Benahi)',
+                items: {
+                  type: 'OBJECT',
+                  properties: {
+                    identifikasi: { type: 'STRING', description: 'Kode dan uraian indikator prioritas / permasalahan yang teridentifikasi' },
+                    capaian: { type: 'STRING', description: 'Nilai capaian dan label kategori (misal: Nilai: 58,23 (Sedang))' },
+                    akarMasalah: {
+                      type: 'ARRAY',
+                      items: { type: 'STRING' },
+                      description: 'Daftar poin akar masalah yang berkontribusi (Refleksi)'
+                    },
+                    rekomendasi: {
+                      type: 'ARRAY',
+                      items: { type: 'STRING' },
+                      description: 'Daftar poin rekomendasi program/kegiatan konkret untuk RKS/RKAS (Benahi)'
+                    }
+                  },
+                  required: ['identifikasi', 'capaian', 'akarMasalah', 'rekomendasi']
+                }
+              }
+            },
+            required: ['ringkasanEksekutif', 'skorDimensi', 'rows']
+          }
+        }
+      };
+
+      try {
+        const apiKey = '';
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+        const result = await fetchGeminiWithBackoff(apiUrl, payload);
+        const rawText = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (!rawText) {
+          throw new Error('AI tidak mengembalikan hasil analisis. Pastikan file PDF dapat dibaca.');
+        }
+
+        const parsed = JSON.parse(rawText);
+        const rows = Array.isArray(parsed.rows) ? parsed.rows : [];
+        if (rows.length === 0) {
+          throw new Error('Tidak ditemukan indikator yang dapat dianalisis pada PDF.');
+        }
+
+        // Sinkronisasi otomatis skor dimensi hasil analisis AI ke data Rapor Pendidikan sekolah (Grafik Dashboard & Pilar 2)
+        const sd = parsed.skorDimensi || {};
+        const clampScore = (val, fallback) => {
+          const num = Number(val);
+          if (!Number.isFinite(num) || num < 0) return fallback;
+          return Math.round(Math.min(100, Math.max(0, num)) * 100) / 100;
+        };
+
+        school.rapor = {
+          ...(school.rapor || {}),
+          literasi: clampScore(sd.literasi, school.rapor?.literasi ?? 0),
+          numerasi: clampScore(sd.numerasi, school.rapor?.numerasi ?? 0),
+          karakter: clampScore(sd.karakter, school.rapor?.karakter ?? 0),
+          keamanan: clampScore(sd.keamanan, school.rapor?.keamanan ?? 0),
+          kebinekaan: clampScore(sd.kebinekaan, school.rapor?.kebinekaan ?? 0),
+          pembelajaran: clampScore(sd.pembelajaran, school.rapor?.pembelajaran ?? 0),
+          penyerapanLulusan: isSmk
+            ? clampScore(sd.penyerapanLulusan, school.rapor?.penyerapanLulusan ?? 0)
+            : (school.rapor?.penyerapanLulusan ?? 0),
+          kemitraanDudi: isSmk
+            ? clampScore(sd.kemitraanDudi, school.rapor?.kemitraanDudi ?? 0)
+            : (school.rapor?.kemitraanDudi ?? 0),
+          rootCause: rows.slice(0, 3).map(r => `${r.identifikasi}: ${(r.akarMasalah || []).join('; ')}`).join(' | '),
+          recommendation: rows.slice(0, 3).map(r => `${r.identifikasi}: ${(r.rekomendasi || []).join('; ')}`).join(' | ')
+        };
+
+        school.raporAnalysisIRB = {
+          fileName: uploadedRaporPdf.fileName,
+          analyzedAt: new Date().toLocaleString('id-ID', { dateStyle: 'long', timeStyle: 'short' }),
+          tahunRapor: parsed.tahunRapor || '',
+          dimensiCount: isSmk ? 8 : 6,
+          ringkasanEksekutif: parsed.ringkasanEksekutif || '',
+          rows
+        };
+
+        saveState();
+        renderRaporAISection(school);
+        renderDashboard();
+        renderPilar2();
+        showToast(`Analisis Rapor Pendidikan (${isSmk ? '8 Dimensi SMK' : '6 Dimensi ' + school.level}) selesai & tersinkron otomatis ke Grafik Dashboard!`, 'success');
+      } catch (err) {
+        console.error('Analisis AI gagal:', err);
+        showToast('Gagal melakukan analisis otomatis: ' + (err.message || 'Periksa koneksi atau file PDF Anda.'), 'error');
+      } finally {
+        if (loadingEl) loadingEl.classList.add('hidden');
+        if (runBtn) {
+          runBtn.disabled = !(uploadedRaporPdf.base64 && uploadedRaporPdf.schoolId === school.id);
+          runBtn.innerHTML = `<i data-lucide="sparkles" class="w-4 h-4"></i> Lakukan Analisis Otomatis`;
+          if (window.lucide) lucide.createIcons();
+        }
+      }
+    }
+
+    function renderRaporAISection(school) {
+      const statusEl = document.getElementById('rapor-pdf-status');
+      const runBtn = document.getElementById('btn-run-rapor-ai');
+      const resultWrap = document.getElementById('rapor-ai-result-wrapper');
+      const metaEl = document.getElementById('rapor-ai-meta');
+      const summaryBox = document.getElementById('rapor-ai-summary-box');
+      const previewEl = document.getElementById('rapor-irb-live-preview');
+
+      if (!school) return;
+
+      // Reset upload indicator if switched to another school
+      if (uploadedRaporPdf.schoolId === school.id && uploadedRaporPdf.base64) {
+        const sizeKb = Math.max(1, Math.round(uploadedRaporPdf.fileSize / 1024));
+        if (statusEl) statusEl.innerHTML = `<span class="text-emerald-200 font-bold">✓ ${escapeHtml(uploadedRaporPdf.fileName)}</span> <span class="text-slate-400">(${sizeKb} KB)</span>`;
+        if (runBtn) runBtn.disabled = false;
+      } else {
+        if (statusEl) statusEl.textContent = 'Belum ada file PDF dipilih (Maks. 15 MB)';
+        if (runBtn) runBtn.disabled = true;
+      }
+
+      const data = school.raporAnalysisIRB;
+      if (!data || !Array.isArray(data.rows) || data.rows.length === 0) {
+        if (resultWrap) resultWrap.classList.add('hidden');
+        return;
+      }
+
+      if (resultWrap) resultWrap.classList.remove('hidden');
+      if (metaEl) {
+        metaEl.textContent = `Sumber PDF: ${data.fileName || '-'} • Dianalisis: ${data.analyzedAt || '-'}${data.tahunRapor ? ' • Rapor Tahun: ' + data.tahunRapor : ''}`;
+      }
+      if (summaryBox) {
+        if (data.ringkasanEksekutif) {
+          summaryBox.classList.remove('hidden');
+          summaryBox.innerHTML = `<strong>Ringkasan Eksekutif AI:</strong> ${escapeHtml(data.ringkasanEksekutif)}`;
+        } else {
+          summaryBox.classList.add('hidden');
+        }
+      }
+
+      if (previewEl) {
+        previewEl.innerHTML = buildRaporIRBDocumentHTML(school, getActiveSupervisor());
+      }
+    }
+
+    function buildRaporIRBDocumentHTML(school, sup) {
+      const data = school?.raporAnalysisIRB;
+      if (!data || !Array.isArray(data.rows)) return '';
+
+      const formatListCell = (items) => {
+        if (!Array.isArray(items) || items.length === 0) return '-';
+        if (items.length === 1) return escapeHtml(items[0]);
+        return `<ul style="margin:0; padding-left:16px;">${items.map(it => `<li style="margin-bottom:3px;">${escapeHtml(it)}</li>`).join('')}</ul>`;
+      };
+
+      const rowsHtml = data.rows.map((row, idx) => `
+        <tr>
+          <td style="text-align:center; border:1px solid #000000; padding:6px 5px; vertical-align:top;">${idx + 1}.</td>
+          <td style="border:1px solid #000000; padding:6px 6px; vertical-align:top;">${escapeHtml(row.identifikasi || '')}</td>
+          <td style="border:1px solid #000000; padding:6px 6px; vertical-align:top;">${escapeHtml(row.capaian || '')}</td>
+          <td style="border:1px solid #000000; padding:6px 6px; vertical-align:top;">${formatListCell(row.akarMasalah)}</td>
+          <td style="border:1px solid #000000; padding:6px 6px; vertical-align:top;">${formatListCell(row.rekomendasi)}</td>
+        </tr>
+      `).join('');
+
+      const todayStr = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+      const wilayah = [school.kabKota, school.cabdin].filter(Boolean).join(' / ') || '-';
+
+      return `
+        <div style="font-family: Arial, Helvetica, sans-serif; color: #000000; font-size: 11px; line-height: 1.45;">
+          <div style="text-align:center; font-weight:bold; font-size:13.5px; margin-bottom:4px; text-transform:uppercase;">
+            FORMAT ANALISIS RAPOR PENDIDIKAN (SIKLUS IRB)
+          </div>
+          <div style="text-align:center; font-size:11px; margin-bottom:14px;">
+            Identifikasi, Refleksi, dan Benahi — Dasar Perencanaan Berbasis Data (PBD)
+          </div>
+
+          <table style="width:100%; border-collapse:collapse; margin-bottom:12px; font-size:11px; color:#000000;">
+            <tr>
+              <td style="width:140px; border:none; padding:2px 0;">Satuan Pendidikan</td>
+              <td style="width:12px; border:none; padding:2px 0;">:</td>
+              <td style="border:none; padding:2px 0;"><strong>${escapeHtml(school.name)}</strong> (${escapeHtml(school.level)})</td>
+              <td style="width:120px; border:none; padding:2px 0;">Pengawas Sekolah</td>
+              <td style="width:12px; border:none; padding:2px 0;">:</td>
+              <td style="border:none; padding:2px 0;">${escapeHtml(sup ? sup.name : '-')}</td>
+            </tr>
+            <tr>
+              <td style="border:none; padding:2px 0;">NPSN</td>
+              <td style="border:none; padding:2px 0;">:</td>
+              <td style="border:none; padding:2px 0;">${escapeHtml(school.npsn || '-')}</td>
+              <td style="border:none; padding:2px 0;">NIP Pengawas</td>
+              <td style="border:none; padding:2px 0;">:</td>
+              <td style="border:none; padding:2px 0;">${escapeHtml(sup ? sup.nip : '-')}</td>
+            </tr>
+            <tr>
+              <td style="border:none; padding:2px 0;">Kab./Kota / Cabdisdik</td>
+              <td style="border:none; padding:2px 0;">:</td>
+              <td style="border:none; padding:2px 0;">${escapeHtml(wilayah)}</td>
+              <td style="border:none; padding:2px 0;">Tahun / Sumber Rapor</td>
+              <td style="border:none; padding:2px 0;">:</td>
+              <td style="border:none; padding:2px 0;">${escapeHtml(data.tahunRapor || data.fileName || '-')}</td>
+            </tr>
+          </table>
+
+          <div style="font-weight:bold; font-size:11.5px; margin-bottom:6px;">
+            Tabel Analisis Rapor Pendidikan (IRB)
+          </div>
+
+          <table class="blangko-table" border="1" cellspacing="0" cellpadding="5" style="width:100%; border-collapse:collapse; border:1px solid #000000; font-size:10.5px; color:#000000;">
+            <thead>
+              <tr style="background-color:#f2f2f2;">
+                <th style="width:5%; text-align:center; border:1px solid #000000; padding:6px 4px;">No.</th>
+                <th style="width:22%; text-align:center; border:1px solid #000000; padding:6px 5px;">Indikator Prioritas /<br/>Permasalahan yang<br/>Teridentifikasi (Identifikasi)</th>
+                <th style="width:13%; text-align:center; border:1px solid #000000; padding:6px 5px;">Capaian /<br/>Nilai Rapor</th>
+                <th style="width:28%; text-align:center; border:1px solid #000000; padding:6px 5px;">Akar Masalah yang<br/>Berkontribusi<br/>(Refleksi)</th>
+                <th style="width:32%; text-align:center; border:1px solid #000000; padding:6px 5px;">Rekomendasi Program /<br/>Kegiatan (Benahi)</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rowsHtml}
+            </tbody>
+          </table>
+
+          <table style="width:100%; border-collapse:collapse; margin-top:22px; font-size:11px; color:#000000;">
+            <tr>
+              <td style="width:55%; border:none; vertical-align:top;">
+                Mengetahui,<br/>
+                Kepala ${escapeHtml(school.name)}<br/>
+                <br/><br/><br/>
+                <strong><u>${escapeHtml(school.kepsek || '........................................')}</u></strong><br/>
+                NIP. ........................................
+              </td>
+              <td style="width:45%; border:none; vertical-align:top;">
+                ${escapeHtml(school.kabKota || '................')}, ${escapeHtml(todayStr)}<br/>
+                Pengawas Sekolah Pembina,<br/>
+                <br/><br/><br/>
+                <strong><u>${escapeHtml(sup ? sup.name : '........................................')}</u></strong><br/>
+                NIP. ${escapeHtml(sup ? sup.nip : '........................................')}
+              </td>
+            </tr>
+          </table>
+        </div>
+      `;
+    }
+
+    function downloadRaporIRBWord() {
+      const school = getActiveSchool();
+      if (!school || !school.raporAnalysisIRB) {
+        showToast('Belum ada hasil analisis Rapor Pendidikan untuk diunduh.', 'warning');
+        return;
+      }
+      const bodyHtml = buildRaporIRBDocumentHTML(school, getActiveSupervisor());
+      const wordHtml = `
+        <html xmlns:o="urn:schemas-microsoft-com:office:office"
+              xmlns:w="urn:schemas-microsoft-com:office:word"
+              xmlns="http://www.w3.org/TR/REC-html40">
+        <head>
+          <meta charset="utf-8" />
+          <title>Analisis Rapor Pendidikan (IRB) - ${escapeHtml(school.name)}</title>
+          <style>
+            @page WordSection1 {
+              size: 29.7cm 21.0cm;
+              mso-page-orientation: landscape;
+              margin: 1.5cm 1.5cm 1.5cm 1.5cm;
+            }
+            div.WordSection1 { page: WordSection1; }
+            body { font-family: Arial, Helvetica, sans-serif; font-size: 10pt; color: #000000; }
+            table.blangko-table { width: 100%; border-collapse: collapse; }
+            table.blangko-table th, table.blangko-table td { border: 1px solid #000000; padding: 5px 6px; vertical-align: top; }
+            ul { margin: 0; padding-left: 16px; }
+          </style>
+        </head>
+        <body>
+          <div class="WordSection1">${bodyHtml}</div>
+        </body>
+        </html>
+      `;
+      const safeName = (school.name || 'Sekolah').replace(/[^a-zA-Z0-9]+/g, '_');
+      const blob = new Blob(['\ufeff', wordHtml], { type: 'application/msword;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `Analisis_Rapor_Pendidikan_IRB_${safeName}_${new Date().toISOString().slice(0, 10)}.doc`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      showToast('File Word (.doc) Analisis Rapor Pendidikan berhasil diunduh!');
+    }
+
+    function copyRaporIRBForGoogleDocs() {
+      const previewEl = document.getElementById('rapor-irb-live-preview');
+      if (!previewEl || !previewEl.innerHTML.trim()) return;
+      try {
+        const range = document.createRange();
+        range.selectNodeContents(previewEl);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        document.execCommand('copy');
+        sel.removeAllRanges();
+        showToast('Tabel Analisis IRB disalin! Tempel (Ctrl+V) langsung di Google Docs atau Word.');
+      } catch (err) {
+        showToast('Gagal menyalin tabel analisis.', 'error');
+      }
+    }
+
+    function printRaporIRBLandscape() {
+      const school = getActiveSchool();
+      if (!school || !school.raporAnalysisIRB) return;
+      document.getElementById('dynamic-print-page').textContent = '@page { size: A4 landscape; margin: 12mm; }';
+      document.getElementById('print-report-sheet').innerHTML = buildRaporIRBDocumentHTML(school, getActiveSupervisor());
+      window.print();
+    }
+
+    function clearRaporAIAnalysis() {
+      const school = getActiveSchool();
+      if (!school) return;
+      school.raporAnalysisIRB = null;
+      saveState();
+      renderRaporAISection(school);
+      showToast('Hasil analisis Rapor Pendidikan pada sekolah ini telah dihapus.', 'info');
     }
 
     function initKinerjaFormControls(school) {
@@ -3655,13 +4339,31 @@
 
       renderPrograms();
 
-      const r = school.rapor;
-      document.getElementById('rapor-literasi').value = r.literasi;
-      document.getElementById('rapor-numerasi').value = r.numerasi;
-      document.getElementById('rapor-karakter').value = r.karakter;
-      document.getElementById('rapor-keamanan').value = r.keamanan;
-      document.getElementById('rapor-kebinekaan').value = r.kebinekaan;
-      document.getElementById('rapor-pembelajaran').value = r.pembelajaran;
+      const r = school.rapor || {};
+      const isSmk = school.level === 'SMK';
+      const p2RaporTitle = document.getElementById('pilar2-rapor-title');
+      if (p2RaporTitle) {
+        p2RaporTitle.textContent = isSmk
+          ? 'Analisis Mutu Rapor Pendidikan (8 Dimensi — Khusus SMK)'
+          : `Analisis Mutu Rapor Pendidikan (6 Dimensi — ${school.level})`;
+      }
+
+      document.getElementById('rapor-literasi').value = r.literasi ?? 0;
+      document.getElementById('rapor-numerasi').value = r.numerasi ?? 0;
+      document.getElementById('rapor-karakter').value = r.karakter ?? 0;
+      document.getElementById('rapor-keamanan').value = r.keamanan ?? 0;
+      document.getElementById('rapor-kebinekaan').value = r.kebinekaan ?? 0;
+      document.getElementById('rapor-pembelajaran').value = r.pembelajaran ?? 0;
+
+      const smkExtra1 = document.getElementById('rapor-smk-extra-1');
+      const smkExtra2 = document.getElementById('rapor-smk-extra-2');
+      if (smkExtra1) smkExtra1.classList.toggle('hidden', !isSmk);
+      if (smkExtra2) smkExtra2.classList.toggle('hidden', !isSmk);
+      if (isSmk) {
+        document.getElementById('rapor-penyerapan').value = r.penyerapanLulusan ?? 70;
+        document.getElementById('rapor-kemitraan').value = r.kemitraanDudi ?? 70;
+      }
+
       document.getElementById('root-cause-input').value = r.rootCause || '';
       document.getElementById('followup-rec-input').value = r.recommendation || '';
 
@@ -3746,31 +4448,44 @@
     function saveRaporAnalysis() {
       const school = getActiveSchool();
       if (!school) return;
+      const isSmk = school.level === 'SMK';
+      const clampVal = (id) => Math.min(100, Math.max(0, Number(document.getElementById(id)?.value) || 0));
       school.rapor = {
-        literasi: Math.min(100, Math.max(0, Number(document.getElementById('rapor-literasi').value) || 0)),
-        numerasi: Math.min(100, Math.max(0, Number(document.getElementById('rapor-numerasi').value) || 0)),
-        karakter: Math.min(100, Math.max(0, Number(document.getElementById('rapor-karakter').value) || 0)),
-        keamanan: Math.min(100, Math.max(0, Number(document.getElementById('rapor-keamanan').value) || 0)),
-        kebinekaan: Math.min(100, Math.max(0, Number(document.getElementById('rapor-kebinekaan').value) || 0)),
-        pembelajaran: Math.min(100, Math.max(0, Number(document.getElementById('rapor-pembelajaran').value) || 0)),
+        ...(school.rapor || {}),
+        literasi: clampVal('rapor-literasi'),
+        numerasi: clampVal('rapor-numerasi'),
+        karakter: clampVal('rapor-karakter'),
+        keamanan: clampVal('rapor-keamanan'),
+        kebinekaan: clampVal('rapor-kebinekaan'),
+        pembelajaran: clampVal('rapor-pembelajaran'),
+        penyerapanLulusan: isSmk ? clampVal('rapor-penyerapan') : (school.rapor?.penyerapanLulusan ?? 0),
+        kemitraanDudi: isSmk ? clampVal('rapor-kemitraan') : (school.rapor?.kemitraanDudi ?? 0),
         rootCause: document.getElementById('root-cause-input').value.trim(),
         recommendation: document.getElementById('followup-rec-input').value.trim()
       };
       saveState();
       renderDashboard();
       renderLiveReportPreview();
-      showToast('Analisis Rapor Pendidikan berhasil disimpan!');
+      showToast('Analisis Rapor Pendidikan berhasil disimpan & disinkronkan ke Grafik Dashboard!');
     }
 
     function generateAutoRecommendation() {
+      const school = getActiveSchool();
+      const isSmk = school && school.level === 'SMK';
       const dims = [
-        { name: 'Literasi', val: Number(document.getElementById('rapor-literasi').value) || 0, tip: 'penguatan pembiasaan literasi lintas mata pelajaran dan pemanfaatan pojok baca digital' },
-        { name: 'Numerasi', val: Number(document.getElementById('rapor-numerasi').value) || 0, tip: 'integrasi soal kontekstual/AKM pada pembelajaran dan pendampingan MGMP' },
-        { name: 'Karakter', val: Number(document.getElementById('rapor-karakter').value) || 0, tip: 'optimalisasi proyek penguatan Profil Pelajar dan pembiasaan budaya positif' },
-        { name: 'Iklim Keamanan', val: Number(document.getElementById('rapor-keamanan').value) || 0, tip: 'aktivasi peran TPPK dan sosialisasi pencegahan perundungan secara berkala' },
-        { name: 'Iklim Kebinekaan', val: Number(document.getElementById('rapor-kebinekaan').value) || 0, tip: 'penguatan praktik toleransi dan layanan pembelajaran inklusif' },
-        { name: 'Kualitas Pembelajaran', val: Number(document.getElementById('rapor-pembelajaran').value) || 0, tip: 'supervisi klinis pembelajaran berdiferensiasi dan refleksi melalui Kombel' }
+        { name: 'Literasi (A.1)', val: Number(document.getElementById('rapor-literasi').value) || 0, tip: 'penguatan pembiasaan literasi lintas mata pelajaran dan pemanfaatan pojok baca digital' },
+        { name: 'Numerasi (A.2)', val: Number(document.getElementById('rapor-numerasi').value) || 0, tip: 'integrasi soal kontekstual/AKM pada pembelajaran dan pendampingan MGMP' },
+        { name: 'Karakter (A.3)', val: Number(document.getElementById('rapor-karakter').value) || 0, tip: 'optimalisasi proyek penguatan Profil Pelajar dan pembiasaan budaya positif' },
+        { name: 'Iklim Keamanan (D.4)', val: Number(document.getElementById('rapor-keamanan').value) || 0, tip: 'aktivasi peran TPPK dan sosialisasi pencegahan perundungan secara berkala' },
+        { name: 'Iklim Kebinekaan (D.8)', val: Number(document.getElementById('rapor-kebinekaan').value) || 0, tip: 'penguatan praktik toleransi dan layanan pembelajaran inklusif' },
+        { name: 'Kualitas Pembelajaran (D.1)', val: Number(document.getElementById('rapor-pembelajaran').value) || 0, tip: 'supervisi klinis pembelajaran berdiferensiasi dan refleksi melalui Kombel' }
       ];
+      if (isSmk) {
+        dims.push(
+          { name: 'Penyerapan Lulusan SMK (A.4)', val: Number(document.getElementById('rapor-penyerapan').value) || 0, tip: 'penguatan Bursa Kerja Khusus (BKK), tracer study lulusan, dan sertifikasi kompetensi LSP' },
+          { name: 'Kemitraan & Keselarasan DUDI (D.17)', val: Number(document.getElementById('rapor-kemitraan').value) || 0, tip: 'penyelarasan kurikulum/teaching factory bersama industri, guru tamu, dan perluasan MoU PKL' }
+        );
+      }
       dims.sort((a, b) => a.val - b.val);
       const lowest = dims.slice(0, 2);
       document.getElementById('root-cause-input').value = `Capaian terendah berada pada dimensi ${lowest[0].name} (${lowest[0].val}%) dan ${lowest[1].name} (${lowest[1].val}%), sehingga memerlukan intervensi prioritas pada Perencanaan Berbasis Data (PBD).`;
@@ -4023,18 +4738,21 @@
 
       let detailSchoolHtml = '';
       if (school) {
-        const r = school.rapor;
+        const r = school.rapor || {};
+        const isSmk = school.level === 'SMK';
+        const smkHeadCols = isSmk ? '<th>Penyerapan SMK (A.4)</th><th>Kemitraan DUDI (D.17)</th>' : '';
+        const smkBodyCols = isSmk ? `<td>${r.penyerapanLulusan ?? 0}%</td><td>${r.kemitraanDudi ?? 0}%</td>` : '';
         detailSchoolHtml = `
-          <h3 style="margin-top:16px;font-size:12pt;font-weight:bold;">B. Detail Sekolah Binaan Aktif: ${escapeHtml(school.name)} (${escapeHtml(school.level)})</h3>
+          <h3 style="margin-top:16px;font-size:12pt;font-weight:bold;">B. Detail Sekolah Binaan Aktif: ${escapeHtml(school.name)} (${escapeHtml(school.level)} — ${isSmk ? '8 Dimensi' : '6 Dimensi'})</h3>
           <table class="print-table">
             <thead>
               <tr>
-                <th>Literasi</th><th>Numerasi</th><th>Karakter</th><th>Keamanan</th><th>Kebinekaan</th><th>Pembelajaran</th>
+                <th>Literasi (A.1)</th><th>Numerasi (A.2)</th><th>Karakter (A.3)</th><th>Keamanan (D.4)</th><th>Kebinekaan (D.8)</th><th>Pembelajaran (D.1)</th>${smkHeadCols}
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>${r.literasi}%</td><td>${r.numerasi}%</td><td>${r.karakter}%</td><td>${r.keamanan}%</td><td>${r.kebinekaan}%</td><td>${r.pembelajaran}%</td>
+                <td>${r.literasi ?? 0}%</td><td>${r.numerasi ?? 0}%</td><td>${r.karakter ?? 0}%</td><td>${r.keamanan ?? 0}%</td><td>${r.kebinekaan ?? 0}%</td><td>${r.pembelajaran ?? 0}%</td>${smkBodyCols}
               </tr>
             </tbody>
           </table>
